@@ -1,4 +1,10 @@
 (function() {
+  // utils
+  // UI utils:
+  // append elements to parent element
+  // set list of attributes to element with object
+
+
   //api
   var socialButton = {};
 
@@ -8,13 +14,20 @@
   socialButton.isFocused = '';
 
   // events
-  socialButton.emit('onclick', function () {});
-  socialButton.emit('onhover', function () {});
-  socialButton.emit('onblur', function () {});
-  socialButton.emit('onfocused', function () {});
+  // socialButton.emit('onclick', function () {});
+  // socialButton.emit('onhover', function () {});
+  // socialButton.emit('onblur', function () {});
+  // socialButton.emit('onfocused', function () {});
 
   // methods
+  /**
+   * Creates the social button
+   * @param props: Object
+   * @param cb: Function
+   */
   socialButton.create = function(props, cb) {
+    // props: all elements to lowercase
+
     // build button
     var doc = document;
     var buttonContainer = doc.createElement('button');
@@ -32,21 +45,32 @@
     // append both to buttonContainer
 
     var buttonInnerText = doc.createElement('span');
-    buttonInnerText.text = 'Login with ';
+    buttonInnerText.innerText = 'Login with ';
     var buttonInnerStrategy = doc.createElement('span');
-    buttonInnerStrategy.text = props.strategy;
+    // first letter to uppercase
+    buttonInnerStrategy.innerText = props.strategy;
     // append all to parent
 
+    buttonLabel.appendChild(buttonInnerText);
+    buttonLabel.appendChild(buttonInnerStrategy);
 
-    
-    // props is an object
+    buttonContainer.appendChild(buttonIcon);
+    buttonContainer.appendChild(buttonLabel);
 
-    // if props doesnt have values return default style
-    // add styles to the button
+    console.log(buttonContainer)
+
+
+
 
     // append events
 
     // return button
   };
+
+  socialButton.create({
+    strategy: 'facebook'
+  }, function (res) {
+    console.log(res);
+  });
 
 }());
