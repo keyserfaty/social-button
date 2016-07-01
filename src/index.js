@@ -40,20 +40,26 @@
     return str[0].toUpperCase() + str.slice(1);
   };
 
-  // API specific utils
-  var hasStrategy = function(props) {
-    return props.hasOwnProperty('strategy');
-  };
-
   // UI utils:
-  // append elements to parent element
-  var appendChilds = function(container) {
-    return function() {
-
+  /**
+   * Append any number of child elements to a container element
+   * @param container
+   * @returns {appendToContainer}
+   */
+  var appendChilds = function appendChildren(container) {
+    return function appendToContainer() {
+      return Array.prototype.map.call(arguments, function (elem) {
+        container.appendChild(elem);
+      });
     }
   };
 
-  // set list of attributes to element with object
+  /**
+   * Set any number of attributes to a DOM element
+   * @param container
+   * @param attrs
+   * @returns {*}
+   */
   var setAttributes = function(container, attrs) {
     Object.keys(attrs).map(function (key) {
       container.setAttribute(key, attrs[key]);
@@ -62,18 +68,35 @@
     return container;
   };
 
+  /**
+   * Create an element with a predefined class
+   * @param tag
+   * @param attrs
+   * @returns {Element}
+   */
   var createElementWithClass = function (tag, attrs) {
     var node = doc.createElement(tag);
     setAttributes(node, attrs);
     return node;
   };
 
+  /**
+   * Add an attribute to a DOM element based on some condition
+   * @param container
+   * @param condition
+   * @param attrs
+   * @returns {*}
+   */
   var addDynamicAttr = function(container, condition, attrs) {
     if (condition) setAttributes(container, attrs);
     return container;
   };
 
-  // utils specific to the api
+  // API specific utils
+  var hasStrategy = function(props) {
+    return props.hasOwnProperty('strategy');
+  };
+  
   var createButtonContainer = function(props) {
     var hasBackground = props.hasOwnProperty('background');
     var buttonAttrs = {
@@ -124,8 +147,8 @@
       buttonInnerText.innerText = props.label;
     }
 
-    buttonLabel.appendChild(buttonInnerText);
-    buttonLabel.appendChild(buttonInnerStrategy);
+    var container = appendChilds(buttonLabel);
+    container(buttonInnerText, buttonInnerStrategy);
 
     return buttonLabel;
   };
@@ -135,23 +158,19 @@
     var buttonIcon = createIcon(props);
     var buttonLabel = createLabel(props);
 
-    buttonContainer.appendChild(buttonIcon);
-    buttonContainer.appendChild(buttonLabel);
+    var container = appendChilds(buttonContainer);
+    container(buttonIcon, buttonLabel);
 
     return buttonContainer;
   };
 
-  //api
+  // API
   var socialButton = {};
-
-  // container element to add the button to
   socialButton.container = '';
-
 
   /**
    * Creates the social button
-   * @param props: Object
-   * @param cb: Function
+   * @param props: Object.
    */
   socialButton.create = function(props) {
     if (!hasStrategy(props)) {
