@@ -193,15 +193,4 @@
     return button;
   };
 
-  var button = socialButton.create({
-    strategy: 'facebook',
-    label: 'Magic label',
-    icon: 'http://simpleicon.com/wp-content/uploads/twitter.png',
-    background: '#ccc',
-  });
-
-  button.onclick = function() {
-    console.log('click');
-  };
-
 }());
