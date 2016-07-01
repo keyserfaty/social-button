@@ -1,6 +1,9 @@
 (function() {
-  // UTILS
-  // Basic utils:
+  // Utils:
+  var fail = function(err) {
+    return console.log(err);
+  };
+
   var existy = function (str) {
     return str != null;
   };
@@ -25,7 +28,7 @@
     }
 
     Object.keys(col).map(function (elem) {
-       return col[elem] = col[elem].toLocaleLowerCase();
+      return col[elem] = col[elem].toLowerCase();
     });
 
     return col;
@@ -33,6 +36,15 @@
 
   var firstToUpper = function(str) {
     return str[0].toUpperCase() + str.slice(1);
+  };
+
+  // API specific utils
+  var hasStrategy = function(props) {
+    return props.hasOwnProperty('strategy');
+  };
+  
+  var addOwnClass = function() {
+    
   };
 
   // UI utils:
@@ -61,17 +73,23 @@
    * @param cb: Function
    */
   socialButton.create = function(props) {
-    // props: all elements to lowercase
-    var lProps = toLower(props);
-    console.log(lProps)
-    console.log(firstToUpper('holi'))
+    if (!hasStrategy(props)) {
+      return fail('You need to specify a strategy');
+    }
 
-    // build button
+    var lProps = toLower(props);
+
+    // basic selectors
     var doc = document;
     var body = doc.querySelector('body');
+    
+    var hasLabel = lProps.hasOwnProperty('label');
+    var hasBackground = lProps.hasOwnProperty('background');
+    var hasIcon = lProps.hasOwnProperty('icon');
 
+    // build button
     var buttonContainer = doc.createElement('button');
-    buttonContainer.setAttribute('data-provider', props.strategy);
+    buttonContainer.setAttribute('data-provider', lProps.strategy);
     buttonContainer.setAttribute('tabindex', '1');
     buttonContainer.setAttribute('type', 'button');
     buttonContainer.setAttribute('class', 'auth0-lock-social-button');
@@ -80,15 +98,24 @@
     var buttonIcon = doc.createElement('div');
     buttonIcon.setAttribute('class', 'auth0-lock-social-button-icon');
 
+    if (hasIcon) {
+      buttonIcon.setAttribute('style', 'background-image: url(\'' + lProps.icon + '\'); background-size: 100%');
+    }
+
     var buttonLabel = doc.createElement('div');
     buttonLabel.setAttribute('class', 'auth0-lock-social-button-text');
 
     var buttonInnerText = doc.createElement('span');
-    buttonInnerText.innerText = 'Login with ';
     var buttonInnerStrategy = doc.createElement('span');
-    // first letter to uppercase
-    buttonInnerStrategy.innerText = props.strategy;
-    // append all to parent
+
+    if (!hasLabel) {
+      buttonInnerText.innerText = 'Login with ';
+      buttonInnerStrategy.innerText = firstToUpper(lProps.strategy);
+    }
+
+    if (hasLabel) {
+      buttonInnerText.innerText = lProps.label;
+    }
 
     buttonLabel.appendChild(buttonInnerText);
     buttonLabel.appendChild(buttonInnerStrategy);
@@ -103,10 +130,10 @@
   };
 
   var button = socialButton.create({
-    strategy: 'FACEBOOK',
-    label: 'Mi red',
-    icon: '',
-    background: '',
+    strategy: 'facebook',
+    label: 'Magic label',
+    icon: 'http://simpleicon.com/wp-content/uploads/twitter.png',
+    background: '#ccc',
   });
 
   // back could be an hexa or a url?
