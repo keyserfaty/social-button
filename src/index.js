@@ -1,4 +1,6 @@
 (function() {
+  var doc = document;
+
   // Utils:
   var fail = function(err) {
     return console.log(err);
@@ -42,31 +44,110 @@
   var hasStrategy = function(props) {
     return props.hasOwnProperty('strategy');
   };
-  
-  var addOwnClass = function() {
-    
-  };
 
   // UI utils:
   // append elements to parent element
-  // set list of attributes to element with object
+  var appendChilds = function(container) {
+    return function() {
 
+    }
+  };
+
+  // set list of attributes to element with object
+  var setAttributes = function(container, attrs) {
+    Object.keys(attrs).map(function (key) {
+      container.setAttribute(key, attrs[key]);
+    });
+
+    return container;
+  };
+
+  var createElementWithClass = function (tag, attrs) {
+    var node = doc.createElement(tag);
+    setAttributes(node, attrs);
+    return node;
+  };
+
+  var addDynamicAttr = function(container, condition, attrs) {
+    if (condition) setAttributes(container, attrs);
+    return container;
+  };
+
+  // utils specific to the api
+  var createButtonContainer = function(props) {
+    var hasBackground = props.hasOwnProperty('background');
+    var buttonAttrs = {
+      'data-provider': props.strategy,
+      'tabindex': 1,
+      'type': 'button',
+      'class': 'auth0-lock-social-button',
+    };
+
+    var buttonContainer = createElementWithClass('button', buttonAttrs);
+    buttonContainer = addDynamicAttr(buttonContainer, hasBackground, {
+      style: 'background-color: ' + props.background,
+    });
+
+    return buttonContainer;
+  };
+
+  var createIcon = function(props) {
+    var hasIcon = props.hasOwnProperty('icon');
+    var buttonIcon = createElementWithClass('div', {
+      class: 'auth0-lock-social-button-icon'
+    });
+
+    buttonIcon = addDynamicAttr(buttonIcon, hasIcon, {
+      style: 'background-image: url(\'' + props.icon + '\')',
+      'background-size': '100%',
+    });
+
+    return buttonIcon;
+  };
+
+  var createLabel = function(props) {
+    var hasLabel = props.hasOwnProperty('label');
+
+    var buttonLabel = createElementWithClass('div', {
+      class: 'auth0-lock-social-button-text',
+    });
+
+    var buttonInnerText = doc.createElement('span');
+    var buttonInnerStrategy = doc.createElement('span');
+
+    if (!hasLabel) {
+      buttonInnerText.innerText = 'Login with ';
+      buttonInnerStrategy.innerText = firstToUpper(props.strategy);
+    }
+
+    if (hasLabel) {
+      buttonInnerText.innerText = props.label;
+    }
+
+    buttonLabel.appendChild(buttonInnerText);
+    buttonLabel.appendChild(buttonInnerStrategy);
+
+    return buttonLabel;
+  };
+
+  var createButton = function(props) {
+    var buttonContainer = createButtonContainer(props);
+    var buttonIcon = createIcon(props);
+    var buttonLabel = createLabel(props);
+
+    buttonContainer.appendChild(buttonIcon);
+    buttonContainer.appendChild(buttonLabel);
+
+    return buttonContainer;
+  };
 
   //api
   var socialButton = {};
 
-  // props
-  socialButton.strategy = '';
-  socialButton.isActive = '';
-  socialButton.isFocused = '';
-
   // container element to add the button to
   socialButton.container = '';
 
-  // events
-  // create some other events?
 
-  // methods
   /**
    * Creates the social button
    * @param props: Object
@@ -77,60 +158,20 @@
       return fail('You need to specify a strategy');
     }
 
+    // Build button
     var lProps = toLower(props);
+    var button = createButton(lProps);
 
-    // basic selectors
-    var doc = document;
-    var body = doc.querySelector('body');
-    
-    var hasLabel = lProps.hasOwnProperty('label');
-    var hasBackground = lProps.hasOwnProperty('background');
-    var hasIcon = lProps.hasOwnProperty('icon');
-
-    // build button
-    var buttonContainer = doc.createElement('button');
-    buttonContainer.setAttribute('data-provider', lProps.strategy);
-    buttonContainer.setAttribute('tabindex', '1');
-    buttonContainer.setAttribute('type', 'button');
-    buttonContainer.setAttribute('class', 'auth0-lock-social-button');
-
-    if (hasBackground) {
-      buttonContainer.setAttribute('style', 'background-color: ' + lProps.background);
+    // Append button to DOM
+    if (!valid(this.container)) {
+      var body = doc.querySelector('body');
+      body.appendChild(button);
+      return button;
     }
 
-    // set this class if no one is defined in props
-    var buttonIcon = doc.createElement('div');
-    buttonIcon.setAttribute('class', 'auth0-lock-social-button-icon');
-
-    if (hasIcon) {
-      buttonIcon.setAttribute('style', 'background-image: url(\'' + lProps.icon + '\'); background-size: 100%');
-    }
-
-    var buttonLabel = doc.createElement('div');
-    buttonLabel.setAttribute('class', 'auth0-lock-social-button-text');
-
-    var buttonInnerText = doc.createElement('span');
-    var buttonInnerStrategy = doc.createElement('span');
-
-    if (!hasLabel) {
-      buttonInnerText.innerText = 'Login with ';
-      buttonInnerStrategy.innerText = firstToUpper(lProps.strategy);
-    }
-
-    if (hasLabel) {
-      buttonInnerText.innerText = lProps.label;
-    }
-
-    buttonLabel.appendChild(buttonInnerText);
-    buttonLabel.appendChild(buttonInnerStrategy);
-
-    buttonContainer.appendChild(buttonIcon);
-    buttonContainer.appendChild(buttonLabel);
-
-    // append to body
-    body.appendChild(buttonContainer);
-
-    return buttonContainer;
+    var container = doc.querySelector(this.container);
+    container.appendChild(button);
+    return button;
   };
 
   var button = socialButton.create({
@@ -139,8 +180,6 @@
     icon: 'http://simpleicon.com/wp-content/uploads/twitter.png',
     background: '#ccc',
   });
-
-  // back could be an hexa or a url?
 
   button.onclick = function() {
     console.log('click');
