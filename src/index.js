@@ -94,6 +94,10 @@
     buttonContainer.setAttribute('type', 'button');
     buttonContainer.setAttribute('class', 'auth0-lock-social-button');
 
+    if (hasBackground) {
+      buttonContainer.setAttribute('style', 'background-color: ' + lProps.background);
+    }
+
     // set this class if no one is defined in props
     var buttonIcon = doc.createElement('div');
     buttonIcon.setAttribute('class', 'auth0-lock-social-button-icon');
