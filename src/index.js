@@ -32,24 +32,6 @@
     return truthy(str) && !empty(str);
   };
 
-  var toLower = function(col) {
-    if (Array.isArray(col)) {
-      return col.map(function (elem) {
-        return elem.toLowerCase();
-      });
-    }
-
-    Object.keys(col).map(function (elem) {
-      return col[elem] = col[elem].toLowerCase();
-    });
-
-    return col;
-  };
-
-  var firstToUpper = function(str) {
-    return str[0].toUpperCase() + str.slice(1);
-  };
-
   // UI utils:
   /**
    * Append any number of child elements to a container element
@@ -181,7 +163,7 @@
 
     if (!hasLabel) {
       buttonInnerText.innerText = 'Login with ';
-      buttonInnerStrategy.innerText = firstToUpper(props.strategy);
+      buttonInnerStrategy.innerText = props.strategy;
     }
 
     if (hasLabel) {
