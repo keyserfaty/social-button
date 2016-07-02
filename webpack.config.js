@@ -36,6 +36,10 @@ module.exports = {
       compress: {
         warnings: false,
         screw_ie8: true,
+      },
+      mangle: {
+        // Don't mangle socialButton
+        except: ['socialButton'],
       }
     })
   ]
