@@ -1,12 +1,11 @@
 (function (socialButton) {
   var button = socialButton.create({
-    strategy: 'facebook',
+    strategy: 'twitter',
+    container: 'div',
     label: 'Twitter magic login',
     icon: 'http://simpleicon.com/wp-content/uploads/twitter.png',
     background: '#aaa',
   });
-
-  socialButton.container = 'div';
 
   button.onclick = function() {
     console.log('click');

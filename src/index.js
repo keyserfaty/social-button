@@ -103,8 +103,8 @@
   };
 
   // API specific utils
-  var hasStrategy = function(props) {
-    return props.hasOwnProperty('strategy');
+  var hasProp = function(props, prop) {
+    return props.hasOwnProperty(prop) && valid(props[prop]);
   };
 
   var createButtonContainer = function(props) {
@@ -182,13 +182,12 @@
    * @param props: Object.
    */
   socialButton.create = function(props) {
-    if (!hasStrategy(props)) {
+    if (!hasProp(props, 'strategy')) {
       return fail('You need to specify a strategy');
     }
 
     // Build button
-    var lProps = toLower(props);
-    var button = createButton(lProps);
+    var button = createButton(props);
 
     // Append button to DOM
     if (!valid(this.container)) {
