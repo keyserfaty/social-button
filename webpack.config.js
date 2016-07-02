@@ -32,6 +32,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       output: {
         comments: false,
+        beautify: false,
       },
       compress: {
         warnings: false,
