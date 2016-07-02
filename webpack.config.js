@@ -1,14 +1,17 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: [
-    './src/index.js'
+    './src/index.js',
+    './src/statics/base.css',
+    './src/statics/buttons.css'
   ],
   module: {
     loaders: [{
       test: /\.css$/,
-      loader: 'style!css!postcss'
-    }]
+      loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+    },]
   },
   resolve: {
     extensions: ['', '.js', '.css']
@@ -23,15 +26,16 @@ module.exports = {
     hot: true
   },
   plugins: [
+    new ExtractTextPlugin("social-button.min.css"),
     new webpack.optimize.OccurenceOrderPlugin(true),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       output: {
-        comments: false
+        comments: false,
       },
       compress: {
         warnings: false,
-        screw_ie8: true
+        screw_ie8: true,
       }
     })
   ]
