@@ -90,18 +90,6 @@
     return node;
   };
 
-  /**
-   * Add an attribute to a DOM element based on some condition
-   * @param container
-   * @param condition
-   * @param attrs
-   * @returns {*}
-   */
-  var addDynamicAttr = function(container, condition, attrs) {
-    if (condition) setAttributes(container, attrs);
-    return container;
-  };
-
   // API specific utils
   var hasProp = function(props, prop) {
     return props.hasOwnProperty(prop) && valid(props[prop]);
@@ -117,9 +105,13 @@
     };
 
     var buttonContainer = createElementWithClass('button', buttonAttrs);
-    buttonContainer = addDynamicAttr(buttonContainer, hasBackground, {
-      style: 'background-color: ' + props.background,
-    });
+    if (hasBackground) {
+      buttonContainer = setAttributes(buttonContainer, {
+        style: 'background-color: ' + props.background,
+      });
+
+      return buttonContainer;
+    }
 
     return buttonContainer;
   };
@@ -130,10 +122,14 @@
       class: 'auth0-lock-social-button-icon'
     });
 
-    buttonIcon = addDynamicAttr(buttonIcon, hasIcon, {
-      style: 'background-image: url(\'' + props.icon + '\')',
-      'background-size': '100%',
-    });
+    if (hasIcon) {
+      buttonIcon = setAttributes(buttonIcon, {
+        style: 'background-image: url(\'' + props.icon + '\')',
+        'background-size': '100%',
+      });
+
+      return buttonIcon;
+    }
 
     return buttonIcon;
   };
