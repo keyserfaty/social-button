@@ -95,6 +95,18 @@
     return props.hasOwnProperty(prop) && valid(props[prop]);
   };
 
+  var getContainer = function(container) {
+    if (container[0] === '#') {
+      return doc.getElementById(container.slice(1));
+    }
+
+    if (container[0] === '.') {
+      return doc.getElementsByClassName(container.slice(1))[0];
+    }
+
+    return doc.getElementsByTagName(container)[0];
+  };
+
   var createButtonContainer = function(props) {
     var hasBackground = props.hasOwnProperty('background');
     var buttonAttrs = {
@@ -178,21 +190,15 @@
    * @param props: Object.
    */
   socialButton.create = function(props) {
-    if (!hasProp(props, 'strategy')) {
-      return fail('You need to specify a strategy');
+    if (!hasProp(props, 'strategy') || !hasProp(props, 'container')) {
+      return fail('You need to specify a strategy and a container');
     }
 
     // Build button
     var button = createButton(props);
 
     // Append button to DOM
-    if (!valid(this.container)) {
-      var body = doc.querySelector('body');
-      body.appendChild(button);
-      return button;
-    }
-
-    var container = doc.querySelector(this.container);
+    var container = getContainer(props.container);
     container.appendChild(button);
     return button;
   };
