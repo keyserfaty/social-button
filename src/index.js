@@ -91,8 +91,20 @@
   };
 
   // API specific utils
+  var strategies = ["amazon", "aol", "baidu", "bitbucket", "dropbox", "ebay", "facebook", "google", "instagram", "linkedin", "github", "paypal", "salesforce", "shopify", "soundcloud", "renren", "exact", "twitter", "yandex", "thecity", "planningcenter", "thirtysevensignals", "fitbit", "wordpress", "yahoo", "box", "vkontakte", "dwolla", "miicard", "yammer", "weibo", "windows", "microsoft"];
+
   var hasProp = function(props, prop) {
-    return props.hasOwnProperty(prop) && valid(props[prop]);
+    var hasStrategy;
+    if (props.hasOwnProperty(prop) && valid(props[prop])) {
+      if (prop === 'strategy') {
+        hasStrategy = strategies.indexOf(props[prop]) !== -1;
+
+        if (!hasStrategy) return fail('The strategy specified is not present');
+        return true;
+      }
+      return true;
+    }
+    return false;
   };
 
   var getContainer = function(container) {
