@@ -96,15 +96,26 @@
   };
 
   var getContainer = function(container) {
+    var response;
+
     if (container[0] === '#') {
-      return doc.getElementById(container.slice(1));
+      response = doc.getElementById(container.slice(1));
+
+      if (!valid(response)) return fail('The id name is not valid');
+      return response;
     }
 
     if (container[0] === '.') {
-      return doc.getElementsByClassName(container.slice(1))[0];
+      response = doc.getElementsByClassName(container.slice(1))[0];
+
+      if (!valid(response)) return fail('The class name is not valid');
+      return response;
     }
 
-    return doc.getElementsByTagName(container)[0];
+    response = doc.getElementsByTagName(container)[0];
+
+    if (!valid(response)) return fail('The tag name is not valid');
+    return response;
   };
 
   var createButtonContainer = function(props) {
