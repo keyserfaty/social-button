@@ -9,7 +9,7 @@ SocialButton
 Create a button
 ---------------
 
-To build a button you just need to specify a **social network** and a **container** element. You can find a complete list of all the social networks that are supported here.
+To build a button you just need to specify a **social network** and a **container** element. You can find a complete list of all the social networks that are supported [here](#Social networks supported).
 ```javascript
 var myButton = socialButton.create({
    strategy: 'facebook',
@@ -46,7 +46,7 @@ SocialButton has only a simple method: **create**. This method expects an object
 
 | Property      | Type | Description                              |
 |------------|---------|---------------------------------|
-| strategy *(required)* | String | A social network name. You can find a complete list of all the strategies supported here |
+| strategy *(required)* | String | A social network name. You can find a complete list of all the strategies supported [here](#Social networks supported) |
 | container *(required)*  | String | A container element where you want the button to be placed. You can get the container element by class, id or tag name. To do that you must specify the element name as `.container`, `#container` or `container` accordingly |
 | label | String | The text to be displayed in the button |
 | icon |String | A url of the icon     |
