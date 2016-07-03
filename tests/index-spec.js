@@ -18,7 +18,6 @@ var setAttributes = function(container, attrs) {
 };
 
 describe('appendChildren', function () {
-
   jsdom();
 
   it('should be a function', function () {
@@ -33,6 +32,10 @@ describe('appendChildren', function () {
     var container = appendChildren(container);
     expect(container).to.be.a('function');
   });
+});
+
+describe('setAttributes', function() {
+  jsdom();
 
   it('should append three children', function () {
     /**
@@ -68,6 +71,10 @@ describe('appendChildren', function () {
 
     expect(container.attributes.length).to.eqls(3);
   });
+});
+
+describe('createElementWithClass', function() {
+  jsdom();
 
   it('should create a div element with two attributes', function () {
     /**
@@ -88,5 +95,4 @@ describe('appendChildren', function () {
     expect(element.nodeName).eql('DIV')
     expect(element.attributes.length).to.eqls(2);
   });
-
 });
