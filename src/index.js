@@ -38,7 +38,7 @@
    * @param container
    * @returns {appendToContainer}
    */
-  var appendChilds = function appendChildren(container) {
+  var appendChildren = function (container) {
     return function appendToContainer() {
       return Array.prototype.map.call(arguments, function (elem) {
         container.appendChild(elem);
@@ -170,7 +170,7 @@
       buttonInnerText.innerText = props.label;
     }
 
-    var container = appendChilds(buttonLabel);
+    var container = appendChildren(buttonLabel);
     container(buttonInnerText, buttonInnerStrategy);
 
     return buttonLabel;
@@ -181,7 +181,7 @@
     var buttonIcon = createIcon(props);
     var buttonLabel = createLabel(props);
 
-    var container = appendChilds(buttonContainer);
+    var container = appendChildren(buttonContainer);
     container(buttonIcon, buttonLabel);
 
     return buttonContainer;
