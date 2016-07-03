@@ -4,9 +4,9 @@
 
   // Register a new Auth0 instance
   var auth0 = new Auth0({
-    domain:       'keyserfaty.auth0.com',
-    clientID:     'LwOkdeAnWYgifq9b4nnRHZ1vMsef63Sz',
-    callbackURL:  'http://localhost:8080',
+    domain:       'my-domain.com',
+    clientID:     'XXX-XXXX-XXX-XXX',
+    callbackURL:  'http://my-host/callback',
     callbackOnLocationHash: true
   });
 
