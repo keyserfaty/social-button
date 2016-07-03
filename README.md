@@ -7,7 +7,8 @@ SocialButton
 
 
 Create a button
--------------
+---------------
+
 To build a button you just need to specify a **social network** and a **container** element. You can find a complete list of all the social networks that are supported here.
 ```javascript
 var myButton = socialButton.create({
@@ -36,12 +37,12 @@ myButton.onclick = function() {
 ```
 
 API
--------------
+---
+
 
 SocialButton has only a simple method: **create**. This method expects an object as its first argument. This is the list of properties it can have:
 
 **Properties**
-
 
 | Property      | Type | Description                              |
 |------------|---------|---------------------------------|
@@ -53,11 +54,13 @@ SocialButton has only a simple method: **create**. This method expects an object
 
 
 **Social networks supported**
+
 `amazon`, `aol`, `baidu`, `bitbucket`, `dropbox`, `ebay`, `facebook`, `google`, `instagram`, `linkedin`, `github`, `paypal`, `salesforce`, `shopify`, `soundcloud`, `renren`, `exact`, `twitter`, `yandex`, `thecity`, `planningcenter`, `thirtysevensignals`, `fitbit`, `wordpress`, `yahoo`, `box`, `vkontakte`, `dwolla`, `miicard`, `yammer`, `weibo`, `windows`, `microsoft`
 
 
 Using the button with Auth0.js
--------------
+------------------------------
+
 
 You can integrate `Auth0.js` to perform a real login. First of all you will need to create a new `Auth0` instance:
 
