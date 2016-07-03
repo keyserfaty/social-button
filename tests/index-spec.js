@@ -1,8 +1,6 @@
 var jsdom = require('mocha-jsdom');
 var expect = require('chai').expect;
 
-
-
 var appendChildren = function appendChildren(container) {
   return function appendToContainer() {
     return Array.prototype.map.call(arguments, function (elem) {
@@ -18,8 +16,6 @@ var setAttributes = function(container, attrs) {
 
   return container;
 };
-
-
 
 describe('appendChildren', function () {
 
@@ -88,7 +84,7 @@ describe('appendChildren', function () {
       'class': 'test',
       'id': 'test',
     });
-    
+
     expect(element.nodeName).eql('DIV')
     expect(element.attributes.length).to.eqls(2);
   });

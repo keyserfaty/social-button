@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --watch ./tests/index-spec.js",
+    "test": "mocha ./tests/index-spec.js",
     "build": "webpack"
   },
   "author": "@keyserfaty",
