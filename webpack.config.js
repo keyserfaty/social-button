@@ -5,9 +5,7 @@ module.exports = {
     './src/index.js',
   ],
   module: {
-    loaders: [{
-      test: /\.css$/,
-    },]
+    loaders: []
   },
   resolve: {
     extensions: ['', '.js']
