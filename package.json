@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha ./tests/index-spec.js",
-    "build": "webpack"
+    "build": "uglifyjs --c --m -r 'socialButton' --o dist/social-button.min.js -- src/index.js"
   },
   "author": "@keyserfaty",
   "license": "ISC",
@@ -13,7 +13,6 @@
     "chai": "^3.5.0",
     "jsdom": "^9.4.0",
     "mocha": "^2.5.3",
-    "mocha-jsdom": "^1.1.0",
-    "webpack": "^1.13.1"
+    "mocha-jsdom": "^1.1.0"
   }
 }
