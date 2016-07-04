@@ -1,4 +1,4 @@
-(function(socialButton, Auth0) {
+(function(socialButton) {
   // Define a strategy
   var strategy = 'github';
 

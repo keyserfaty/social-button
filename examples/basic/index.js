@@ -2,7 +2,7 @@
   var button = socialButton.create({
     strategy: 'twitter',
     container: '.container',
-    label: 'Twitter magic login',
+    label: 'Twitter magic button',
     icon: 'http://simpleicon.com/wp-content/uploads/twitter.png',
     background: '#aaa',
   });
